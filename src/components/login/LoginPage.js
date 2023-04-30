@@ -1,8 +1,7 @@
-import React from 'react'
-import styles from './login.module.css'
-import { doGoogleLoginAction, logOutAction } from '../../redux/userDuck'
-import { connect } from 'react-redux'
-
+import React from 'react';
+import styles from './login.module.css';
+import { doGoogleLoginAction, logOutAction } from '../../redux/userDuck';
+import { connect } from 'react-redux';
 class LoginPage extends React.PureComponent{
     constructor(props){
         super(props);
@@ -24,18 +23,24 @@ class LoginPage extends React.PureComponent{
             </h1> : <h1>
                     Inicia Sesión con Google
             </h1>}
-
             {this.props.loggedIn ? <button onClick={this.logOut} >
                 Cerrar Sesión
             </button> : <button onClick={this.doLogin}>
                     Iniciar
             </button>}
-
         </div>
-        )
+        );
     }
 }
+function mapState({ user: { fetching, loggedIn } }) {
+    return {
+        fetching,
+        loggedIn
+    }
+}
+export default connect(mapState, { doGoogleLoginAction, logOutAction })(LoginPage)
 
+/*
 function LoginPage2({ logOutAction, loggedIn, fetching, doGoogleLoginAction }) {
     function doLogin(){
         doGoogleLoginAction();
@@ -61,12 +66,4 @@ function LoginPage2({ logOutAction, loggedIn, fetching, doGoogleLoginAction }) {
         </div>
     )
 }
-
-function mapState({ user: { fetching, loggedIn } }) {
-    return {
-        fetching,
-        loggedIn
-    }
-}
-
-export default connect(mapState, { doGoogleLoginAction, logOutAction })(LoginPage)
+*/
